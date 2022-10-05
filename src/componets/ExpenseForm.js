@@ -4,6 +4,13 @@ import {v4 as uuidv4} from 'uuid';
 
     
     const ExpenseForm = (props) => {
+
+      // const [Payload, setPayload] = useState({
+      //   productPrice: "",
+      //   productName:""
+      // })
+
+      
         const [expense, setExpense] = useState(() => {
           return {
             expensename: props.expense ? props.expense.expensename : '',
@@ -87,7 +94,7 @@ import {v4 as uuidv4} from 'uuid';
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="submit-btn">
+            <Button variant="primary" onClick={props.onclick} type="submit" className="submit-btn">
               Submit
             </Button>
           </Form>

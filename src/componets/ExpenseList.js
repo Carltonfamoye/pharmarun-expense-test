@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import _ from 'lodash';
 import Expense from './Expense';
+import ExpenseContext from '../context/Expensecontext';
 
 
-const ExpenseList = ({ expense, setExpense }) => {
+const ExpenseList = () =>{ 
+  const { expense, setExpense } = useContext(ExpenseContext);
 
+ 
+  
     const handleRemoveExpense = (id) => {
       setExpense(expense.filter((expense) => expense.id !== id));
     };
@@ -19,6 +23,7 @@ const ExpenseList = ({ expense, setExpense }) => {
           ) : (
             <p className="message">No expenses available. Please add some expenses.</p>
           )}
+
         </div>
       </React.Fragment>
     );

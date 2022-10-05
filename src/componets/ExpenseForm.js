@@ -2,38 +2,42 @@ import React, {useState} from 'react';
 import {Form, Button} from 'react-bootstrap';
 import {v4 as uuidv4} from 'uuid';
 
-const ExpenseForm = (props)=> {
     
-    const [expense, setExpense] = useState({
-        expensename:props.expense ? props.expense.expensename:'',
-        price: props.expense ? props.expense.price : ''
-    });
-
-    const[errorMsg,setErrorMsg] = useState('');
-    const{expensename,price}= expense;
-
-    const handleOnSubmit=(event) => {
-        event.preventDefault();
-        const values = [expensename,price];
-        let errorMsg = '';
+    const ExpenseForm = (props) => {
+        const [expense, setExpense] = useState(() => {
+          return {
+            expensename: props.expense ? props.expense.expensename : '',
+            
+            price: props.expense ? props.expense.price : '',
+            
+          };
+        });
+      
+        const [errorMsg, setErrorMsg] = useState('');
+        const { expensename,price } = expense;
+      
+        const handleOnSubmit = (event) => {
+          event.preventDefault();
+          const values = [expensename,price];
+          let errorMsg = '';
 
     
-    const PharmarunFieldsFilled = values.every((field)=> {
-        const value = `${field}`.trim();
-        return value !== '' && value!=='0';  
-      }); 
+        const PharmarunFieldsFilled = values.every((field)=> {
+            const value = `${field}`.trim();
+            return value !== '' && value!=='0';  
+        }); 
 
-      if (PharmarunFieldsFilled) {
-        const expense = {
-            id: uuidv4(),
-            expensename,
-            price
-        };
+        if (PharmarunFieldsFilled) {
+            const expense = {
+                id: uuidv4(),
+                expensename,
+                price
+            };
         props.handleOnSubmit(expense);
-      }else{
-        errorMsg= 'Please fill out all the fields';
-      }
-      setErrorMsg(errorMsg);
+        } else{
+            errorMsg= 'Please fill out all the fields';
+        }
+        setErrorMsg(errorMsg);
 
 
     };
@@ -57,40 +61,37 @@ const ExpenseForm = (props)=> {
         }
     };
 
-    return(
-        <div className= "main-form">
-            {errorMsg && <p className= "errorMsg">{errorMsg}</p>}
-            <Form onSubmit={handleOnSubmit}>
-                <Form.Group controlId ="name">
-                    <Form.Label>Expense Name</Form.Label>
-                    <Form.Control
-                      className="input-control"
-                      type="text"
-                      name="expensename"
-                      value={expensename}
-                      placeholder="Enter the name of expense"
-                      onChange={handleInputChange}
-                />
-                </Form.Group>
-                <Form.Group controlId="price">
-                    <Form.Label>Expense Price</Form.Label>
-                    <Form.Control
-                      className = "input-control"
-                      type="number"
-                      name="price"
-                      value={price}
-                      placeholder="Enter price of expense"
-                      onChange={handleInputChange}
-                
-                    />
-                </Form.Group>
-                <Button variant ="primary" type="submit" className="submit-btn">
-                    Submit
-                </Button>
-            </Form>
-
+    return (
+        <div className="main-form">
+          {errorMsg && <p className="errorMsg">{errorMsg}</p>}
+          <Form onSubmit={handleOnSubmit}>
+            <Form.Group controlId="name">
+              <Form.Label>Expense Name</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="expensename"
+                value={expensename}
+                placeholder="Enter name of expense"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="price">
+              <Form.Label>Expense Price</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="price"
+                value={price}
+                placeholder="Enter price of expense"
+                onChange={handleInputChange}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="submit-btn">
+              Submit
+            </Button>
+          </Form>
         </div>
-    );
-};
-
-export default ExpenseForm;
+      );
+    };
+    export default ExpenseForm;
